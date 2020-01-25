@@ -1,0 +1,73 @@
+﻿<Window x:Class="CSObfuscator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CSObfuscator"
+        mc:Ignorable="d"
+        Title="CSharpObfuscator" Height="350" Width="525">
+
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem x:Name="menuOpen" Header="Открыть" Click="menuOpen_Click"></MenuItem>
+                <MenuItem x:Name="menuSaveAs" Header="Сохранить как" Click="menuSaveAs_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem x:Name="About" Header="О программе" Click="About_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1" Padding="5">
+            <TabItem Header="Обфускация">
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="tbCode" Grid.Row="0" TextWrapping="NoWrap" Margin="0,0,0,5"
+                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             AcceptsReturn="True" AcceptsTab="True"
+                             AllowDrop="True" PreviewDragOver="tbCode_PreviewDragOver" Drop="tbCode_Drop"/>
+                        <Button x:Name="btnObfuscate" Click="btnObfuscate_Click" Content="Обфусцировать"
+                                Grid.Row="1" Height="30"></Button>
+                        <ProgressBar x:Name="pbObfProgress" Visibility="Collapsed" Grid.Row="1" Height="30"
+                                     IsIndeterminate="True"></ProgressBar>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Настройка">
+                <TabItem.Content>
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type CheckBox}">
+                                <Setter Property="Margin" Value="0,10,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Label>
+                            <Label.Content>
+                                <TextBlock TextWrapping="Wrap">
+                                    По умолчанию программа выполняет следующие действия: удаляет комментарии, символы форматирования, директивы, а также переименовывает локальные переменные.
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <Label>Дополнительные параметры обфускации:</Label>
+                        <CheckBox x:Name="cbRenameParameters">Переименовывать параметры</CheckBox>
+                        <CheckBox x:Name="cbRenameGlobals">Переименовывать классы, структуры, поля и перечисления</CheckBox>
+                        <CheckBox x:Name="cbObfuscateLiterals">Обфускацировать строковые и числовые константы</CheckBox>
+                        <CheckBox x:Name="cbReplaceConstructions">Изменять языковые конструкции</CheckBox>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
